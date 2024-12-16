@@ -1,25 +1,25 @@
 class Jsonpath < Formula
   desc "RFC 9535 compliant JSONPath processor with beautiful colored output"
   homepage "https://github.com/davidhoo/jsonpath"
-  version "1.0.4"
+  version "2.0.0"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/davidhoo/jsonpath/releases/download/v1.0.4/jp-darwin-arm64.tar.gz"
-      sha256 "3912063b5b36680811f9da2964552552b6b9d1d7fc1db5a542a72c4b88b0fd22"
+      url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.0/jp-darwin-arm64.tar.gz"
+      sha256 "64f1302d48fbf1a7490afcf4fd5ce641e47ea2a0852f117ca59d4fca6dc73777"
     else
-      url "https://github.com/davidhoo/jsonpath/releases/download/v1.0.4/jp-darwin-amd64.tar.gz"
-      sha256 "1ce80c0d6c813283a391c17c032eaa9481c528ed7fb91280563ed6ac307d996c"
+      url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.0/jp-darwin-amd64.tar.gz"
+      sha256 "04b79ac35fb012379e5b8357cc68576bdc5bd9e828cab8d094a7f7950ac17f35"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/davidhoo/jsonpath/releases/download/v1.0.4/jp-linux-arm64.tar.gz"
-      sha256 "eabad9ad8a70f65ea3f8e8fe7cd9162de991868c8c38636df3852616d6b31ad3"
+      url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.0/jp-linux-arm64.tar.gz"
+      sha256 "041784daf8fea751d7f73329c0a96fe691078570ce4b123812f53e1c5a7847f8"
     else
-      url "https://github.com/davidhoo/jsonpath/releases/download/v1.0.4/jp-linux-amd64.tar.gz"
-      sha256 "62cbeb3724d42d5e047d042c265d3186cb2151b054a5c50e4a17965a484ed2c1"
+      url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.0/jp-linux-amd64.tar.gz"
+      sha256 "f8b462fdb84526868fbc271a08db54e8ea5715c0f09ab13a2d57867dd9ca883c"
     end
   end
 
