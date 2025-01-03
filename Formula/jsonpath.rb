@@ -6,20 +6,20 @@ class Jsonpath < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.1/jp-darwin-arm64.tar.gz"
-      sha256 "64f1302d48fbf1a7490afcf4fd5ce641e47ea2a0852f117ca59d4fca6dc73777"
+      sha256 "23ff9552f815e5e99c7399b107a836e38e62d51d604552298dd1f4939cc693eb"
     else
       url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.1/jp-darwin-amd64.tar.gz"
-      sha256 "04b79ac35fb012379e5b8357cc68576bdc5bd9e828cab8d094a7f7950ac17f35"
+      sha256 "295484f38043a27dbbf9c39c6d282e2680ef0eae6dd248820f1523857f3a118a"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.1/jp-linux-arm64.tar.gz"
-      sha256 "041784daf8fea751d7f73329c0a96fe691078570ce4b123812f53e1c5a7847f8"
+      sha256 "98669d1164db897361621fb4ac99ad158a16b4c73cd8224c54379a29241a1192"
     else
       url "https://github.com/davidhoo/jsonpath/releases/download/v2.0.1/jp-linux-amd64.tar.gz"
-      sha256 "f8b462fdb84526868fbc271a08db54e8ea5715c0f09ab13a2d57867dd9ca883c"
+      sha256 "c89b33b7c6c5f2b4833403d32a5c1d69b94345db748f9b52d874903ef3d78831"
     end
   end
 
