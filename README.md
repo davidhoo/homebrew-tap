@@ -2,39 +2,20 @@
 
 [English](README.md) | [中文](README_zh.md)
 
-A command-line tool for processing JSON data using JSONPath expressions, compliant with RFC 9535.
+RFC 9535 compliant JSONPath implementation in Go with command-line tool and library.
 
 ## Features
 
-- 🎨 Beautiful colored output
-- 📖 RFC 9535 compliant implementation
-- 🚀 Fast and efficient processing
-- 💪 Support for complex JSONPath queries
-- 🔧 Easy to use command-line interface
-
-### Supported Features
-- Complete RFC 9535 Implementation
-  - Root node access (`$`)
-  - Child node access (`.key` or `['key']`)
-  - Recursive descent (`..`)
-  - Array indices (`[0]`, `[-1]`)
-  - Array slices (`[start:end:step]`)
-  - Array wildcards (`[*]`)
-  - Multiple indices (`[1,2,3]`)
-  - Filter expressions (`[?(@.price < 10)]`)
-- Command Line Tool (`jp`)
-  - Beautiful colorized output
-  - Syntax highlighting for JSON
-  - File and stdin input support
-  - Formatted and compact output options
-  - User-friendly error messages
-  - UTF-8 support with proper CJK display
+- **100% RFC 9535 Compliant** - Passes all 703 compliance tests
+- **Beautiful colored output** with syntax highlighting
+- **Complete JSONPath support** - All standard selectors and functions
+- **Fast and efficient** - Written in Go
+- **Easy to use** - Simple command-line interface
 
 ## Installation
 
-Using Homebrew:
-
 ```bash
+brew tap davidhoo/tap
 brew install jsonpath
 ```
 
@@ -44,109 +25,92 @@ brew install jsonpath
 
 ```bash
 # Query from a file
-jp '$.store.book[0].title' data.json
+jp -f data.json -p '$.store.book[0].title'
 
 # Query from stdin
-echo '{"name": "jp"}' | jp '$.name'
+echo '{"name": "jp"}' | jp -p '$.name'
 
 # Pretty print with colors
-jp -p '$.store.book[*].title' data.json
+jp -f data.json -p '$.store.book[*].title'
 ```
 
-### Advanced Examples
+### Filter Expressions
 
 ```bash
-# Filter array elements
-jp '$.store.book[?(@.price < 10)].title' data.json
+# Filter by price
+jp -f data.json -p '$.store.book[?(@.price < 10)]'
 
-# Array slice
-jp '$.store.book[0:2].title' data.json
+# Complex filters
+jp -f data.json -p '$.store.book[?(@.price > 10 && @.category == "fiction")]'
 
-# Multiple queries
-jp '$.store.book[*].title, $.store.book[*].author' data.json
-
-# Count elements
-jp '$.store.book.length()' data.json
+# Existence test
+jp -f data.json -p '$[?@.name]'
 ```
 
-### Supported Operators
+### Functions (RFC 9535)
 
-- `$` - Root element
-- `.` - Child operator
-- `..` - Recursive descent
-- `*` - Wildcard
-- `[start:end:step]` - Array slice
-- `[?(@.price > 10)]` - Filter expression
-- `length()` - Array length function
+```bash
+# Match with regex
+jp -f data.json -p '$.store.book[?match(@.title, "^S.*")]'
+
+# Search
+jp -f data.json -p '$.store.book[?search(@.title, "Century")]'
+
+# Count nodes
+jp -f data.json -p '$[?count(@..*) > 5]'
+```
+
+### Non-Standard Extensions
+
+```bash
+# Min/Max/Avg/Sum
+jp -f data.json -p '$.store.book[*].price.min()'
+jp -f data.json -p '$.store.book[*].price.max()'
+
+# Keys/Values
+jp -f data.json -p '$.store.keys()'
+jp -f data.json -p '$.store.values()'
+```
+
+### Normalized Path Output
+
+```bash
+# Show RFC 9535 Normalized Paths
+echo '{"a":1,"b":2}' | jp --path '$.*'
+# Output:
+# $['a'] 1
+# $['b'] 2
+```
 
 ## Options
 
-```bash
-jp --help
+| Flag | Description |
+|------|-------------|
+| `-p` | JSONPath expression |
+| `-f` | JSON file path (reads from stdin if not specified) |
+| `-c` | Compact output |
+| `--no-color` | Disable colored output |
+| `--path` | Show Normalized Paths |
+| `-v` | Show version |
+| `-h` | Show help |
 
-Usage: jp [options] <expression> [file...]
+## RFC 9535 Compliance
 
-Options:
-  -p, --pretty     Enable pretty print with colors
-  -r, --raw        Output raw strings without quotes
-  -h, --help       Show help information
-  -v, --version    Show version information
-```
+This implementation fully complies with [RFC 9535](https://www.rfc-editor.org/rfc/rfc9535):
 
-## Examples with Sample Data
+- All standard selectors (name, index, slice, wildcard, filter, recursive descent, union)
+- All standard functions (`length`, `count`, `match`, `search`, `value`)
+- I-Regexp pattern matching (RFC 9485)
+- Normalized Path generation
+- Three-valued logic in filter expressions
 
-Given this JSON:
-```json
-{
-  "store": {
-    "book": [
-      {
-        "title": "The Go Programming Language",
-        "price": 25.99
-      },
-      {
-        "title": "Learning JSON",
-        "price": 9.99
-      }
-    ]
-  }
-}
-```
+## Links
 
-Query examples:
-```bash
-# Get all book titles
-jp '$.store.book[*].title'
-# Output: ["The Go Programming Language", "Learning JSON"]
-
-# Get books cheaper than 10
-jp '$.store.book[?(@.price < 10)].title'
-# Output: ["Learning JSON"]
-```
-
-## Implementation Details
-
-1. RFC 9535 Compliance
-   - Support for all standard operators
-   - Standard-compliant syntax parsing
-   - Standard result formatting
-2. Filter Support
-   - Comparison operators: `<`, `>`, `<=`, `>=`, `==`, `!=`
-   - Currently supports numeric comparisons
-   - Future support for string comparisons and logical operators
-3. Result Handling
-   - Array operations return array results
-   - Single value access returns original type
-   - Type-safe result handling
-4. Error Handling
-   - Detailed error messages
-   - Syntax error reporting
-   - Runtime error handling
+- [GitHub Repository](https://github.com/davidhoo/jsonpath)
+- [Documentation](https://github.com/davidhoo/jsonpath#readme)
+- [Changelog](https://github.com/davidhoo/jsonpath/blob/main/CHANGELOG.md)
+- [Migration Guide](https://github.com/davidhoo/jsonpath/blob/main/MIGRATION.md)
 
 ## License
 
 MIT
-
-## Author
-
-David Hoo
