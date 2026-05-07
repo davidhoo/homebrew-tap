@@ -27,7 +27,7 @@ class Jsonpath < Formula
   end
 
   def install
-    bin.install "jp"
+    bin.install "jsonpath" => "jp"
   end
 
   test do
